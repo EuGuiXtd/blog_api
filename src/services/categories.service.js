@@ -8,6 +8,14 @@ const addCategory = async (name) => {
     return { type: null, message: Categories };
   };
 
+  const getAll = async () => {
+    const Categories = await Category.findAll({
+      attributes: ['id', 'name'],
+    });
+  
+    return Categories;
+  };
   module.exports = {
     addCategory,
+    getAll,
 };

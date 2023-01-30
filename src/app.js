@@ -19,6 +19,8 @@ app.get('/user/:id', validateJWT, userController.getUserById);
 
 app.post('/categories', validateJWT, categoryController.addCategory);
 
+app.get('/categories', validateJWT, categoryController.getAll);
+
 // ...
 
 // É importante exportar a constante `app`,
