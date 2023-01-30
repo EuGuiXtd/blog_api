@@ -9,6 +9,13 @@ const validateUser = (displayName, email, password) => {
     } return { type: null, message: '' };
   };
 
+  const validateCategory = (name) => {
+      const { error } = schemas.categorySchema.validate({ name });
+      if (error) {
+        return { type: 'INVALID_INPUT', message: error.message };
+      } return { type: null, message: '' };
+    };
 module.exports = {
     validateUser,
+    validateCategory,
   };
