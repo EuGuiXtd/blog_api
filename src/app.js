@@ -14,6 +14,8 @@ app.post('/user', userController.addUser);
 
 app.get('/user', validateJWT, userController.getAll);
 
+app.get('/user/:id', validateJWT, userController.getUserById);
+
 // ...
 
 // É importante exportar a constante `app`,
