@@ -9,10 +9,9 @@ const addUser = async (displayName, email, password, image) => {
     return { type: 'INPUTS_IN_USE', message: 'User already registered' };
   }
   const error = validations.validateUser(displayName, email, password);
-  console.log(error);
-  if (error) return error;
+  if (error.type) return error;
 
-  await User.create({ displayName, email, password, image });
+  console.log('AQUI', await User.create({ displayName, email, password, image }));
   return { type: null };
 };
 
