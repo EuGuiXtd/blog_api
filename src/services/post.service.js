@@ -31,7 +31,23 @@ console.log(post[0].userId);
   return post;
 };
 
+const getPostById = async (id) => {
+  const post = await BlogPost.findOne({
+    where: { id },
+    attributes: ['id', 'title', 'content', 'userId', 'published', 'updated'],
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories' },
+    ],
+  });
+  if (!post) {
+    return { type: 'ID_NOT_FOUND', message: 'Post does not exist' };
+  }
+  return { type: null, message: post };
+};
+
 module.exports = {
   getAll,
   addPost,
+  getPostById,
 };
