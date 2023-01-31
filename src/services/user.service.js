@@ -33,8 +33,20 @@ const getUserById = async (id) => {
   return { type: null, message: user };
 };
 
+const getUserByEmail = async (email) => {
+  const user = await User.findOne({
+    where: { email },
+    attributes: ['id', 'displayName', 'email', 'image'],
+  });
+  if (!user) {
+    return { type: 'EMAIL_NOT_FOUND', message: 'User does not exist' };
+  }
+  return { type: null, message: user };
+};
+
 module.exports = {
     addUser,
     getAll,
     getUserById,
+    getUserByEmail,
 };

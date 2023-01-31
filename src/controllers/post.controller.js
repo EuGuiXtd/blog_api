@@ -27,9 +27,22 @@ const getAll = async (_req, res) => {
     }
     return res.status(200).json(message);
   };
+
+  const attPost = async (req, res) => {
+    const { id } = req.params;
+    const { title, content } = req.body;
+    const { type, message } = await postService.attPost(id, title, content, req.user);
+    console.log('AQUI 2', req.user);
+  
+    if (type) {
+      return res.status(type).json({ message });
+    }
+    return res.status(200).json(message);
+  };
   
   module.exports = {
     getAll,
     addPost,
     getPostById,
+    attPost,
 };

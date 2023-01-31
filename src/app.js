@@ -28,6 +28,10 @@ app.get('/post', validateJWT, postController.getAll);
 
 app.get('/post/:id', validateJWT, postController.getPostById);
 
+app.put('/post/:id', validateJWT, postController.attPost);
+
+app.get('/user/:email', validateJWT, userController.getUserByEmail);
+
 // ...
 
 // É importante exportar a constante `app`,

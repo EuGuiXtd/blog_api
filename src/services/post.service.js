@@ -46,8 +46,31 @@ const getPostById = async (id) => {
   return { type: null, message: post };
 };
 
+const attPost = async (id, title, content, userEmail) => {
+  const post = await BlogPost.findOne({
+    where: { id },
+  });
+  if (!post) return { type: 404, message: 'Post does not exist' };
+
+  const idUser = await User.findOne({ where: { email: userEmail } });
+  console.log('AQUI', idUser.id); 
+
+  if (idUser.id !== post.userId) {
+    return { type: 401, message: 'Unauthorized user' };
+  }
+
+  if (!title || !content) {
+    return { type: 400, message: 'Some required fields are missing' };
+  }
+
+  await BlogPost.update({ title, content }, { where: { id } }); 
+  const updatedBlog = getPostById(id);
+
+   return updatedBlog;
+};
 module.exports = {
   getAll,
   addPost,
   getPostById,
+  attPost,
 };

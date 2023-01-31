@@ -2,7 +2,6 @@
 const jwt = require('jsonwebtoken');
 
 require('dotenv/config');
-const UserService = require('../services/user.service');
 
 const secret = process.env.JWT_SECRET || 'seusecretdetoken';
 
@@ -15,12 +14,12 @@ module.exports = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, secret);
-    console.log(decoded.email);
+    console.log('AQUI 201', decoded.email);
 
-    const user = await UserService.getAll(decoded.email);
+    const user = decoded.email;
 
-    req.user = user[0].email;
-    console.log('AQUI', req.user);
+    req.user = user;
+    console.log('AQUI 5', req.user);
 
     next();
   } catch (err) {
