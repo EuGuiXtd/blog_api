@@ -19,7 +19,8 @@ module.exports = async (req, res, next) => {
 
     const user = await UserService.getAll(decoded.email);
 
-    req.user = user;
+    req.user = user[0].email;
+    console.log('AQUI', req.user);
 
     next();
   } catch (err) {
